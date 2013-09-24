@@ -61,6 +61,11 @@ NSString * const MMshowsSelectionIndicator = @"showsSelectionIndicator";
                 withOptions:(NSDictionary *)options
                  completion:(void (^)(NSString *))completion{
   
+  if ([[view subviews] containsObject:[self sharedView]]) {
+    // The picker is already showing.
+    return;
+  }
+  
   [[self sharedView] initializePickerViewInView:view
                                       withArray:strings
                                     withOptions:options];
@@ -76,6 +81,11 @@ NSString * const MMshowsSelectionIndicator = @"showsSelectionIndicator";
                 withOptions:(NSDictionary *)options
     objectToStringConverter:(NSString *(^)(id))converter
                  completion:(void (^)(id))completion {
+  
+  if ([[view subviews] containsObject:[self sharedView]]) {
+    // The picker is already showing.
+    return;
+  }
   
   [self sharedView].objectToStringConverter = converter;
   [self sharedView].onDismissCompletion = completion;
